@@ -46,9 +46,16 @@ const Theme = {
   color: {
     white: {
       base: '#FFFFFF',
+      100: '#f0edeb',
     },
     black: {
       base: '#000000',
+      100: '#b5b4b3',
+      200: '#5c5b5b',
+    },
+    primary: {
+      base: '#ff4d00',
+      100: '#fc6c2d',
     },
     transparent: 'transparent',
   },

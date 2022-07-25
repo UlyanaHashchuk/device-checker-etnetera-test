@@ -25,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
     }
     
     ${({ theme: { color, fontFamily } }: Props) => css`
-      background-color: ${color.white.base};
+      background-color: ${color.white[100]};
       font-family: ${fontFamily.base};
     `}
   }

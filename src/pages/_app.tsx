@@ -22,7 +22,7 @@ interface ComponentType {
 }
 
 const DefaultLayout = React.memo(({ children }: LayoutPropsType) => (
-  <div>{children}</div>
+  <>{children}</>
 ))
 
 const App = ({ Component, pageProps }: AppProps & ComponentType) => {
