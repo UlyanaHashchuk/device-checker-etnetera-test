@@ -1,15 +1,17 @@
 import React from 'react'
 import TopNavigation from './components/TopNavigation'
+import { Container, Content } from './index.styled'
 
 type Props = {
   children: React.ReactNode
+  centered?: boolean
 }
 
-const BaseLayout = React.memo(({ children }: Props) => (
-  <div>
+const BaseLayout = React.memo(({ children, centered = true }: Props) => (
+  <Container>
     <TopNavigation />
-    <div>{children}</div>
-  </div>
+    <Content centered={centered}>{children}</Content>
+  </Container>
 ))
 
 export default BaseLayout
