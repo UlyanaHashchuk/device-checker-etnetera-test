@@ -28,7 +28,7 @@ const TopNavigation = React.memo(() => {
     <Container>
       <div className="flex items-center">
         <NextImage src={logo} width="45px" height="45px" alt="logo" />
-        <Text large className="ml-2 hidden md:block">
+        <Text middle className="ml-2 hidden md:block">
           {formatMessage(messages.appName)}
         </Text>
       </div>

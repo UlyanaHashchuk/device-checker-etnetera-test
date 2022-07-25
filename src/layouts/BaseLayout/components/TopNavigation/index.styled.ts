@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px 18px;
+  padding: 12px 20px;
   position: sticky;
   top: 0;
   left: 0;

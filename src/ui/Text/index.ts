@@ -4,9 +4,12 @@ type Props = Partial<{
   // colors
   blackBase: boolean
   whiteBase: boolean
+  secondary: boolean
   // sizes
+  xSmall: boolean
   small: boolean
   regular: boolean
+  middle: boolean
   large: boolean
   // others
   centered: boolean
@@ -29,8 +32,18 @@ const Text = styled.p<Props>`
     css`
       color: ${color.white.base};
     `}
+
+    ${props.secondary &&
+    css`
+      color: ${color.black[300]};
+    `}
    
     // sizes
+    ${props.xSmall &&
+    css`
+      font-size: 0.75rem; //12px
+    `}
+    
     ${props.small &&
     css`
       font-size: 0.875rem; //14px
@@ -41,9 +54,14 @@ const Text = styled.p<Props>`
       font-size: 1rem; //16px
     `}
 
-    ${props.large &&
+    ${props.middle &&
     css`
       font-size: 1.125rem; //18px
+    `}
+
+    ${props.large &&
+    css`
+      font-size: 1.5rem; //24px
     `}
     
     // others

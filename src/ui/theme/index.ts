@@ -45,17 +45,22 @@ const Theme = {
   // --------------------------------------------------------------------------
   color: {
     white: {
-      base: '#FFFFFF',
+      base: '#ffffff',
       100: '#f0edeb',
+      200: '#d6d4d2',
     },
     black: {
       base: '#000000',
-      100: '#b5b4b3',
-      200: '#5c5b5b',
+      100: '#e3e1de',
+      200: '#949292',
+      300: '#808080',
     },
     primary: {
       base: '#ff4d00',
       100: '#fc6c2d',
+    },
+    red: {
+      base: '#e00000',
     },
     transparent: 'transparent',
   },
