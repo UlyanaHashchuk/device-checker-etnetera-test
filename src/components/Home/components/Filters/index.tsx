@@ -1,37 +1,40 @@
 import React from 'react'
-import { Dropdown, Text, Checkbox } from '~/ui'
 import { useIntl } from 'react-intl'
+import NextImage from 'next/image'
+import { Dropdown, Text, Checkbox } from '~/ui'
+import { Dispatch, useDispatch, useSelector } from '~/store'
+import { getDeviceFilters } from '~/selectors'
+import { DEVICES_STATE_KEY } from '~/constants'
 import { SYSTEM_OPTIONS, VENDOR_OPTIONS } from '../../constants'
 import messages from './index.messages'
-import { Wrapper, FlexWrapper } from './index.styled'
+import {
+  Wrapper,
+  FlexWrapper,
+  SearchContainer,
+  SearchInput,
+} from './index.styled'
 
 type Props = {
-  selectedOptions: {
-    systemIndex: number
-    vendorIndex: number
-  }
-  setSelectedOptions: (prop: any) => void
-  isChecked: boolean
-  setIsChecked: (prop: boolean) => void
+  searchInput: string
+  setSearchInput: (prop: string) => void
 }
 
-const Filters = ({
-  selectedOptions,
-  setSelectedOptions,
-  isChecked,
-  setIsChecked,
-}: Props) => {
+const Filters = ({ searchInput, setSearchInput }: Props) => {
   const { formatMessage } = useIntl()
+  const dispatch = useDispatch<Dispatch>()
+  const { isChecked, systemIndex, vendorIndex } = useSelector(getDeviceFilters)
 
-  const onSelect = React.useCallback(
-    (key: keyof typeof selectedOptions) => (value: number) => {
-      setSelectedOptions((prevState: typeof selectedOptions) => ({
-        ...prevState,
-        [key]: value,
-      }))
-    },
-    []
-  )
+  const onSystemSelect = (value: number) => {
+    dispatch[DEVICES_STATE_KEY].setSystemIndex(value)
+  }
+
+  const onVendorSelect = (value: number) => {
+    dispatch[DEVICES_STATE_KEY].setVendorIndex(value)
+  }
+
+  const onCheck = () => {
+    dispatch[DEVICES_STATE_KEY].setIsChecked(!isChecked)
+  }
 
   return (
     <FlexWrapper secondary>
@@ -40,10 +43,7 @@ const Filters = ({
           <Text xSmall secondary>
             {formatMessage(messages.system)}
           </Text>
-          <Dropdown
-            onSelect={onSelect('systemIndex')}
-            activeTab={selectedOptions.systemIndex}
-          >
+          <Dropdown onSelect={onSystemSelect} activeTab={systemIndex}>
             {SYSTEM_OPTIONS.map((option, index) => (
               <Text key={index}>{option}</Text>
             ))}
@@ -53,10 +53,7 @@ const Filters = ({
           <Text xSmall secondary>
             {formatMessage(messages.vendor)}
           </Text>
-          <Dropdown
-            onSelect={onSelect('vendorIndex')}
-            activeTab={selectedOptions.vendorIndex}
-          >
+          <Dropdown onSelect={onVendorSelect} activeTab={vendorIndex}>
             {VENDOR_OPTIONS.map((option, index) => (
               <Text key={index}>{option}</Text>
             ))}
@@ -67,11 +64,25 @@ const Filters = ({
             name="isAvailable"
             label={formatMessage(messages.checkboxLabel)}
             value={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
+            onChange={onCheck}
           />
         </Wrapper>
       </FlexWrapper>
-      <div>Search</div>
+      <SearchContainer>
+        <NextImage
+          src="/images/search.png"
+          width="18px"
+          height="18px"
+          alt="Search"
+        />
+        <SearchInput
+          name="search"
+          type="text"
+          placeholder={formatMessage(messages.searchPlaceholder)}
+          value={searchInput}
+          onChange={({ target: { value } }) => setSearchInput(value)}
+        />
+      </SearchContainer>
     </FlexWrapper>
   )
 }

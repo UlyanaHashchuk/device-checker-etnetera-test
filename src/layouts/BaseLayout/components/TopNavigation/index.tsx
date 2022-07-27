@@ -10,7 +10,6 @@ import { getAuthState, getUser } from '~/selectors'
 import useAuthentication from '~/auth/hooks/useAuthentication'
 import { Container, RightSideContainer } from './index.styled'
 import messages from './index.messages'
-import logo from '~/../public/images/logo.jpeg'
 
 const TopNavigation = React.memo(() => {
   const { formatMessage } = useIntl()
@@ -29,15 +28,20 @@ const TopNavigation = React.memo(() => {
 
   return (
     <Container>
-      <div className="flex items-center">
-        <NextImage src={logo} width="45px" height="45px" alt="logo" />
+      <div className="flex items-center shrink-0">
+        <NextImage
+          src="/images/logo.jpeg"
+          width="45px"
+          height="45px"
+          alt="logo"
+        />
         <Text middle className="ml-2 hidden md:block">
           {formatMessage(messages.appName)}
         </Text>
       </div>
       <RightSideContainer>
         {isSignedIn && login && (
-          <Text small whiteBase>
+          <Text small whiteBase className="hidden md:block">
             {login}
           </Text>
         )}

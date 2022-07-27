@@ -4,20 +4,11 @@ import { PAGE_AUTH_TYPE } from '~/constants'
 import Filters from './components/Filters'
 
 const Home = () => {
-  const [selectedOptions, setSelectedOptions] = React.useState({
-    systemIndex: 0,
-    vendorIndex: 0,
-  })
-  const [isChecked, setIsChecked] = React.useState(false)
+  const [searchInput, setSearchInput] = React.useState('')
 
   return (
     <div className="my-5 md:my-10">
-      <Filters
-        selectedOptions={selectedOptions}
-        setSelectedOptions={setSelectedOptions}
-        isChecked={isChecked}
-        setIsChecked={setIsChecked}
-      />
+      <Filters searchInput={searchInput} setSearchInput={setSearchInput} />
     </div>
   )
 }

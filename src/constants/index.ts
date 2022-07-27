@@ -1,6 +1,7 @@
 import LocalStorage from '~/auth/Storage'
 
 export const AUTHORIZATION_STATE_KEY = 'authorization'
+export const DEVICES_STATE_KEY = 'devices'
 
 export enum PAGE_AUTH_TYPE {
   SECURE = 'SECURE',
