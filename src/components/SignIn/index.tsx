@@ -9,14 +9,15 @@ import Form from './components/Form'
 
 const SignIn = () => {
   const { formatMessage } = useIntl()
+  const [hasError, setHasError] = React.useState(false)
 
   return (
     <Container>
       <Text large>{formatMessage(messages.signInTitle)}</Text>
       <Text small secondary>
-        {formatMessage(messages.signInNote)}
+        {formatMessage(hasError ? messages.singInError : messages.signInNote)}
       </Text>
-      <Form />
+      <Form setHasError={setHasError} />
     </Container>
   )
 }

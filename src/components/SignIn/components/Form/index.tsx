@@ -2,34 +2,44 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useIntl } from 'react-intl'
 import { Button, Input } from '~/ui'
+import useAuthentication, {
+  SignInFormValues,
+} from '~/auth/hooks/useAuthentication'
 import messages from '../../index.messages'
 
-type FormValues = {
-  email: string
-  password: string
+type Props = {
+  setHasError: (prop: boolean) => void
 }
 
-const Form = () => {
+const Form = ({ setHasError }: Props) => {
   const { formatMessage } = useIntl()
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>()
+  } = useForm<SignInFormValues>()
   const [isLoading, setIsLoading] = React.useState(false)
+  const { signIn } = useAuthentication()
 
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
-    console.log('submit: ', values)
+  const onSubmit: SubmitHandler<SignInFormValues> = (values) => {
     setIsLoading(true)
+
+    signIn({
+      values,
+      onError: () => {
+        setHasError(true)
+        setIsLoading(false)
+      },
+    })
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
       <Input
-        name="email"
+        name="login"
         register={register}
         placeholder={formatMessage(messages.namePlaceholder)}
-        hasError={!!errors?.email}
+        hasError={!!errors?.login}
         required
       />
       <Input

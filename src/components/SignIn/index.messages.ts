@@ -32,4 +32,10 @@ export default defineMessages({
     defaultMessage: 'Zpracovává se...',
     description: 'Submit button loading state',
   },
+  singInError: {
+    id: 'SignIn.singInError',
+    defaultMessage:
+      'Přihlášení se nezdařilo. Zkontrolujte prosím přihlašovací jméno a heslo.',
+    description: 'Sign in error',
+  },
 })
