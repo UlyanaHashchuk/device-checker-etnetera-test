@@ -2,24 +2,27 @@ import React from 'react'
 import NextImage from 'next/image'
 import { useIntl } from 'react-intl'
 import Router from 'next/router'
+import NextLink from 'next/link'
 import { Button, Text } from '~/ui'
-import { PAGE_URLS } from '~/constants'
+import { AUTHENTICATION, PAGE_URLS, USER_TYPE } from '~/constants'
+import { useSelector } from '~/store'
+import { getAuthState, getUser } from '~/selectors'
+import useAuthentication from '~/auth/hooks/useAuthentication'
 import { Container, RightSideContainer } from './index.styled'
 import messages from './index.messages'
 import logo from '~/../public/images/logo.jpeg'
 
 const TopNavigation = React.memo(() => {
   const { formatMessage } = useIntl()
-  // TODO: use from auth state
-  const isSignedIn = false
-  const userEmail = 'email@gmail.com'
-  const isAdmin = false
+  const { login, type } = useSelector(getUser)
+  const authState = useSelector(getAuthState)
+  const isSignedIn = authState === AUTHENTICATION.AUTHENTICATED
+  const { signOut } = useAuthentication()
 
   const handleClick = () => {
     if (isSignedIn) {
-      console.log('on signOut')
+      signOut()
     } else {
-      console.log('on signIn')
       Router.push(PAGE_URLS.SIGN_IN)
     }
   }
@@ -33,9 +36,9 @@ const TopNavigation = React.memo(() => {
         </Text>
       </div>
       <RightSideContainer>
-        {isSignedIn && userEmail && (
+        {isSignedIn && login && (
           <Text small whiteBase>
-            {userEmail}
+            {login}
           </Text>
         )}
         <Button primary onClick={handleClick}>
@@ -43,8 +46,10 @@ const TopNavigation = React.memo(() => {
             {formatMessage(isSignedIn ? messages.signOut : messages.signIn)}
           </Text>
         </Button>
-        {isAdmin && (
-          <Button primary>{formatMessage(messages.addDevice)}</Button>
+        {type === USER_TYPE.ADMIN && (
+          <NextLink href={PAGE_URLS.ADD_DEVICE}>
+            <Button primary>{formatMessage(messages.addDevice)}</Button>
+          </NextLink>
         )}
       </RightSideContainer>
     </Container>

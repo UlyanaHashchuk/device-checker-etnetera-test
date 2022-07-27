@@ -1,7 +1,9 @@
 import React from 'react'
 import Router, { useRouter } from 'next/router'
-import { PAGE_AUTH_TYPE, authLocalStorage } from '~/constants'
+import { PAGE_AUTH_TYPE, authLocalStorage, AUTHENTICATION } from '~/constants'
 import { getRedirectPage } from '~/auth/utils'
+import { useSelector } from '~/store'
+import { getAuthState } from '~/selectors'
 import useAuthentication from '../hooks/useAuthentication'
 
 type Props = Partial<{
@@ -14,6 +16,7 @@ const MemoChildren = React.memo(({ children }: Record<string, any>) => children)
 const AuthenticationProvider = ({ type, children }: Props) => {
   const { pathname } = useRouter()
   const { token, id } = authLocalStorage.get()
+  const authState = useSelector(getAuthState)
   const { verify } = useAuthentication()
 
   const redirectUrl = getRedirectPage({ type, token, pathname })
@@ -28,10 +31,9 @@ const AuthenticationProvider = ({ type, children }: Props) => {
     }
   }, [redirectUrl])
 
-  // TODO: fix hydration error with and "blicking" without this condition
-  // if (redirectUrl) {
-  //   return <div />
-  // }
+  if (authState === AUTHENTICATION.AUTHENTICATING || redirectUrl) {
+    return null
+  }
 
   return <MemoChildren>{children}</MemoChildren>
 }

@@ -9,6 +9,11 @@ export const getUserType = createSelector(
   (state) => state.user.type
 )
 
+export const getUser = createSelector(
+  getAuthorizationState,
+  (state) => state.user
+)
+
 export const getAuthState = createSelector(
   getAuthorizationState,
   (state) => state.authState

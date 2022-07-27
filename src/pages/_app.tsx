@@ -37,11 +37,11 @@ const App = ({ Component, pageProps }: AppProps & ComponentType) => {
       <Provider store={store}>
         <ThemeProvider theme={Theme}>
           <GlobalStyles />
-          <AuthenticationProvider type={type}>
-            <Layout {...layoutProps}>
+          <Layout {...layoutProps}>
+            <AuthenticationProvider type={type}>
               <Component {...pageProps} />
-            </Layout>
-          </AuthenticationProvider>
+            </AuthenticationProvider>
+          </Layout>
         </ThemeProvider>
       </Provider>
     </IntlProvider>

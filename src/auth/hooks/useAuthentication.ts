@@ -69,9 +69,11 @@ const useAuthentication = () => {
       body: JSON.stringify({ ...values }),
     })
       .then((data) => {
-        if (data.id) {
+        const { id, token } = data
+
+        if (id) {
           setUserInfo(data, AUTHENTICATION.AUTHENTICATED)
-          authLocalStorage.set({ id: data.id.toString(), token: data.token })
+          authLocalStorage.set({ id: id.toString(), token: token })
           Router.replace(PAGE_URLS.HOME)
         }
       })
@@ -82,7 +84,8 @@ const useAuthentication = () => {
   }
 
   const signOut = () => {
-    console.log('singOut')
+    authLocalStorage.remove()
+    dispatch[AUTHORIZATION_STATE_KEY].resetState()
   }
 
   return { signIn, signOut, verify }
