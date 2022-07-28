@@ -19,7 +19,7 @@ const AuthenticationProvider = ({ type, children }: Props) => {
   const authState = useSelector(getAuthState)
   const { verify } = useAuthentication()
 
-  const redirectUrl = getRedirectPage({ type, token, pathname })
+  const redirectUrl = getRedirectPage({ type, token, pathname, authState })
 
   React.useEffect(() => {
     verify(id)

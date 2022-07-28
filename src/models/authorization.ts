@@ -35,8 +35,9 @@ export const authorization = createModel<RootModel>()({
     setAuthState(state, payload: AUTHENTICATION) {
       state.authState = payload
     },
-    resetState() {
-      return initialState
+    resetState(state) {
+      state.user = initialState.user
+      state.authState = AUTHENTICATION.UNAUTHENTICATED
     },
   },
 })

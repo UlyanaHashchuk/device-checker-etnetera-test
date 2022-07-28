@@ -5,12 +5,15 @@ type Props = Partial<{
   blackBase: boolean
   whiteBase: boolean
   secondary: boolean
+  error: boolean
   // sizes
   xSmall: boolean
   small: boolean
   regular: boolean
   middle: boolean
   large: boolean
+  // font-weight
+  semibold: boolean
   // others
   centered: boolean
   uppercase: boolean
@@ -19,7 +22,7 @@ type Props = Partial<{
 }>
 
 const Text = styled.p<Props>`
-  ${({ theme: { color }, ...props }) => css`
+  ${({ theme: { color, fontWeight }, ...props }) => css`
     color: inherit;
 
     // colors
@@ -36,6 +39,11 @@ const Text = styled.p<Props>`
     ${props.secondary &&
     css`
       color: ${color.black[300]};
+    `}
+
+    ${props.error &&
+    css`
+      color: ${color.red.base};
     `}
    
     // sizes
@@ -62,6 +70,12 @@ const Text = styled.p<Props>`
     ${props.large &&
     css`
       font-size: 1.5rem; //24px
+    `}
+    
+    // font-weight
+    ${props.semibold &&
+    css`
+      font-weight: ${fontWeight.semibold};
     `}
     
     // others

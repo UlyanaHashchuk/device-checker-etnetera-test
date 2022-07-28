@@ -28,17 +28,19 @@ const TopNavigation = React.memo(() => {
 
   return (
     <Container>
-      <div className="flex items-center shrink-0">
-        <NextImage
-          src="/images/logo.jpeg"
-          width="45px"
-          height="45px"
-          alt="logo"
-        />
-        <Text middle className="ml-2 hidden md:block">
-          {formatMessage(messages.appName)}
-        </Text>
-      </div>
+      <NextLink href={PAGE_URLS.HOME}>
+        <div className="flex items-center shrink-0 cursor-pointer">
+          <NextImage
+            src="/images/logo.jpeg"
+            width="45px"
+            height="45px"
+            alt="logo"
+          />
+          <Text middle className="ml-2 hidden md:block">
+            {formatMessage(messages.appName)}
+          </Text>
+        </div>
+      </NextLink>
       <RightSideContainer>
         {isSignedIn && login && (
           <Text small whiteBase className="hidden md:block">

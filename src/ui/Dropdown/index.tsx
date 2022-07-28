@@ -6,9 +6,16 @@ type Props = {
   className?: string
   activeTab: number
   onSelect: (prop: number) => void
+  secondary?: boolean
 }
 
-const Dropdown = ({ children, className, activeTab, onSelect }: Props) => {
+const Dropdown = ({
+  children,
+  className,
+  activeTab,
+  onSelect,
+  secondary,
+}: Props) => {
   const [isOpened, setIsOpened] = React.useState(false)
 
   const childrenArray = React.Children.toArray(children)
@@ -28,7 +35,7 @@ const Dropdown = ({ children, className, activeTab, onSelect }: Props) => {
   }
 
   return (
-    <Container className={className} onBlur={onBlur}>
+    <Container secondary={secondary} className={className} onBlur={onBlur}>
       <DropdownTrigger onClick={onClick}>
         {childrenArray[activeTab]}
         <Symbol isOpened={isOpened}>▼</Symbol>

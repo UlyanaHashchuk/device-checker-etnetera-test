@@ -52,6 +52,9 @@ export const devices = createModel<RootModel>()({
     setDevices(state, payload: DeviceType[]) {
       state.devices = payload
     },
+    addDevice(state, payload: DeviceType) {
+      state.devices.push(payload)
+    },
     resetState() {
       return initialState
     },

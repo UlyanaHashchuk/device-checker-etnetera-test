@@ -1,17 +1,22 @@
 import styled, { css } from 'styled-components'
 import { BaseButton } from '~/ui'
 
-export const Container = styled.div`
+export const Container = styled.div<{
+  secondary?: boolean
+}>`
   position: relative;
   outline: none;
   display: flex;
   align-items: center;
   width: 100%;
 
-  ${({ theme: { media } }) => css`
-    @media only screen and (min-width: ${media.md}px) {
-      width: 165px;
-    }
+  ${({ theme: { media }, secondary }) => css`
+    ${!secondary &&
+    css`
+      @media only screen and (min-width: ${media.md}px) {
+        width: 165px;
+      }
+    `}
   `}
 `
 

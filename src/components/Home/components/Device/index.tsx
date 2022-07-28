@@ -19,7 +19,7 @@ const Device = React.memo(
     })
 
     const borrowedByName = isBorrowedByMe ? name : user?.name
-    const today = isBorrowedByMe ? new Date().getTime() : date
+    const today = date ?? (isBorrowedByMe ? new Date().getTime() : 0)
 
     return (
       <Box secondary>

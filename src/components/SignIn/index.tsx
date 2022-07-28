@@ -14,7 +14,7 @@ const SignIn = () => {
   return (
     <Container>
       <Text large>{formatMessage(messages.signInTitle)}</Text>
-      <Text small secondary>
+      <Text small secondary error={hasError}>
         {formatMessage(hasError ? messages.singInError : messages.signInNote)}
       </Text>
       <Form setHasError={setHasError} />
