@@ -13,3 +13,9 @@ export const VENDOR_OPTIONS = [
   'Motorola',
   'Acer',
 ]
+
+export const DEVICE_STATE = {
+  AVAILABLE: 'available',
+  BORROWED: 'borrowed',
+  NOT_AVAILABLE: 'notAvailable',
+}

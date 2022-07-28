@@ -1,13 +1,15 @@
 import fetch from 'isomorphic-fetch'
+import { authLocalStorage } from '~/constants'
 
 type Props = {
   url: string
   method: 'GET' | 'POST' | 'DELETE' | 'PUT'
-  toke?: string
 } & Record<string, any>
 
-export const request = <T>({ url, method, token, ...restProps }: Props) =>
-  new Promise<T>((resolve, reject) => {
+export const request = <T>({ url, method, ...restProps }: Props) => {
+  const { token } = authLocalStorage.get()
+
+  return new Promise<T>((resolve, reject) => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/${url}`, {
       method,
       headers: {
@@ -28,3 +30,4 @@ export const request = <T>({ url, method, token, ...restProps }: Props) =>
       )
       .catch(reject)
   })
+}

@@ -4,7 +4,7 @@ import { AUTHENTICATION, USER_TYPE } from '~/constants'
 import { RootModel } from '~/models/index'
 
 export type UserInfoType = {
-  id: string | null
+  id: string | number | null
   type: USER_TYPE
   login: string
   name: string

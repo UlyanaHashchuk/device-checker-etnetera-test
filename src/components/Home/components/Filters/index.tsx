@@ -22,10 +22,10 @@ type Props = {
 const Filters = ({ searchInput, setSearchInput }: Props) => {
   const { formatMessage } = useIntl()
   const dispatch = useDispatch<Dispatch>()
-  const { isChecked, systemIndex, vendorIndex } = useSelector(getDeviceFilters)
+  const { isChecked, osIndex, vendorIndex } = useSelector(getDeviceFilters)
 
-  const onSystemSelect = (value: number) => {
-    dispatch[DEVICES_STATE_KEY].setSystemIndex(value)
+  const onOsSelect = (value: number) => {
+    dispatch[DEVICES_STATE_KEY].setOsIndex(value)
   }
 
   const onVendorSelect = (value: number) => {
@@ -43,7 +43,7 @@ const Filters = ({ searchInput, setSearchInput }: Props) => {
           <Text xSmall secondary>
             {formatMessage(messages.system)}
           </Text>
-          <Dropdown onSelect={onSystemSelect} activeTab={systemIndex}>
+          <Dropdown onSelect={onOsSelect} activeTab={osIndex}>
             {SYSTEM_OPTIONS.map((option, index) => (
               <Text key={index}>{option}</Text>
             ))}

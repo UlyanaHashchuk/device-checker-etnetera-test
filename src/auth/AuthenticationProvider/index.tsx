@@ -22,7 +22,7 @@ const AuthenticationProvider = ({ type, children }: Props) => {
   const redirectUrl = getRedirectPage({ type, token, pathname })
 
   React.useEffect(() => {
-    verify({ id, token })
+    verify(id)
   }, [])
 
   React.useEffect(() => {

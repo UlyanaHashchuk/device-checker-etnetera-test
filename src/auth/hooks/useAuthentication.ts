@@ -20,11 +20,6 @@ type SignInPropsType = {
   onError: () => void
 }
 
-type VerifyPropsType = {
-  id: string
-  token: string
-}
-
 type SingInResponseType = {
   token: string
 } & UserInfoType
@@ -44,22 +39,17 @@ const useAuthentication = () => {
     []
   )
 
-  const verify = ({ id, token }: VerifyPropsType) => {
-    if (token) {
-      request<UserInfoType>({
-        url: `users/${id}`,
-        method: 'GET',
-        token,
+  const verify = (id: string) => {
+    request<UserInfoType>({
+      url: `users/${id}`,
+      method: 'GET',
+    })
+      .then((data) => {
+        setUserInfo(data, AUTHENTICATION.AUTHENTICATED)
       })
-        .then((data) => {
-          setUserInfo(data, AUTHENTICATION.AUTHENTICATED)
-        })
-        .catch(() => {
-          setAuthState(AUTHENTICATION.UNAUTHENTICATED)
-        })
-    } else {
-      setAuthState(AUTHENTICATION.UNAUTHENTICATED)
-    }
+      .catch(() => {
+        setAuthState(AUTHENTICATION.UNAUTHENTICATED)
+      })
   }
 
   const signIn = ({ values, onError }: SignInPropsType) => {
