@@ -1,3 +1,9 @@
 export const dateToLocaleString = (value: number) =>
-  // 'tr-TR' is date/time formatting to look like: DD.MM.YYYY HH:MM:SS
-  new Date(value).toLocaleString('tr-TR')
+  // date/time formatting to look like: DD.M.YYYY HH:MM
+  new Date(value).toLocaleString('de-DE', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })

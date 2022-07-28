@@ -13,22 +13,26 @@ const Device = React.memo(
   ({ id, os, vendor, model, image, osVersion, borrowed }: DeviceType) => {
     const { formatMessage } = useIntl()
     const { user, date } = borrowed || {}
-    const { deviceState, handleClick, isBorrowedByMe } = useDevice({
+    const { deviceState, handleClick, isBorrowedByMe, name } = useDevice({
       borrowedBy: user?.login || '',
       id,
     })
+
+    const borrowedByName = isBorrowedByMe ? name : user?.name
+    const today = isBorrowedByMe ? new Date().getTime() : date
 
     return (
       <Box secondary>
         <ImageContainer>
           <Image src={image ?? noImage.src} alt="device image" />
-          {borrowed && deviceState !== DEVICE_STATE.AVAILABLE && (
+          {((borrowed && deviceState !== DEVICE_STATE.AVAILABLE) ||
+            isBorrowedByMe) && (
             <ImageOverlayText small truncate>
               {formatMessage(messages.borrowedBy, {
-                hasName: user?.name?.length ?? 0,
-                name: user?.name,
-                hasDate: date ?? 0,
-                date: date && dateToLocaleString(date),
+                hasName: borrowedByName?.length ?? 0,
+                name: borrowedByName,
+                hasDate: today ?? 0,
+                date: today && dateToLocaleString(today),
               })}
             </ImageOverlayText>
           )}

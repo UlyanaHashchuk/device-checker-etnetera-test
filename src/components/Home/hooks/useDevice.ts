@@ -2,6 +2,7 @@ import React from 'react'
 import { DEVICE_STATE } from '~/components/Home/constants'
 import { useSelector } from '~/store'
 import { getUser } from '~/selectors'
+import { request } from '~/api'
 
 type Props = {
   borrowedBy: string
@@ -21,7 +22,7 @@ const getDeviceState = (borrowedBy: string, login: string) => {
 }
 
 const useDevice = ({ borrowedBy, id }: Props) => {
-  const { login } = useSelector(getUser)
+  const { login, name } = useSelector(getUser)
   const [deviceState, setDeviceState] = React.useState(
     getDeviceState(borrowedBy, login)
   )
@@ -29,15 +30,33 @@ const useDevice = ({ borrowedBy, id }: Props) => {
 
   const handleClick = () => {
     if (deviceState === DEVICE_STATE.AVAILABLE) {
-      console.log('borrow')
+      request({
+        url: `/phones/${id}/borrow`,
+        method: 'POST',
+      })
+        .then(() => {
+          setDeviceState(DEVICE_STATE.BORROWED)
+        })
+        .catch(() => {
+          setDeviceState(DEVICE_STATE.AVAILABLE)
+        })
     }
 
     if (isBorrowedByMe) {
-      console.log('return')
+      request({
+        url: `/phones/${id}/return`,
+        method: 'POST',
+      })
+        .then(() => {
+          setDeviceState(DEVICE_STATE.AVAILABLE)
+        })
+        .catch(() => {
+          setDeviceState(DEVICE_STATE.BORROWED)
+        })
     }
   }
 
-  return { deviceState, handleClick, isBorrowedByMe }
+  return { deviceState, handleClick, isBorrowedByMe, name }
 }
 
 export default useDevice
