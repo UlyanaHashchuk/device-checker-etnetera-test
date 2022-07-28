@@ -17,7 +17,7 @@ yarn dev
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 or
-- Open [Etnetera-test](https://etnetera-test.vercel.app/sign-in) Vercel deploy
+- Open [Etnetera-test](https://etnetera-test.vercel.app) Vercel deploy
 
 ## Pages
 
