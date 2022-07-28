@@ -2,6 +2,7 @@
 import { createModel } from '@rematch/core'
 import { RootModel } from '~/models/index'
 import { UserInfoType } from '~/models/authorization'
+import { STATE_KEY } from '~/constants'
 
 export type DeviceType = {
   id: string
@@ -17,7 +18,7 @@ export type DeviceType = {
   }
 }
 
-type DevicesState = {
+export type DevicesStateType = {
   filters: {
     isChecked: boolean
     osIndex: number
@@ -26,7 +27,7 @@ type DevicesState = {
   devices: DeviceType[]
 }
 
-const initialState: DevicesState = {
+const initialState: DevicesStateType = {
   filters: {
     isChecked: false,
     osIndex: 0,
@@ -36,6 +37,7 @@ const initialState: DevicesState = {
 }
 
 export const devices = createModel<RootModel>()({
+  name: STATE_KEY.DEVICES,
   state: initialState,
   reducers: {
     setIsChecked(state, payload: boolean) {
@@ -50,8 +52,8 @@ export const devices = createModel<RootModel>()({
     setDevices(state, payload: DeviceType[]) {
       state.devices = payload
     },
-    resetState(state) {
-      state.filters = initialState.filters
+    resetState() {
+      return initialState
     },
   },
 })

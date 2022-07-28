@@ -3,7 +3,7 @@ import { request } from '~/api'
 import { Dispatch, useDispatch } from '~/store'
 import {
   AUTHENTICATION,
-  AUTHORIZATION_STATE_KEY,
+  STATE_KEY,
   authLocalStorage,
   PAGE_URLS,
 } from '~/constants'
@@ -28,12 +28,12 @@ const useAuthentication = () => {
   const dispatch = useDispatch<Dispatch>()
 
   const setAuthState = React.useCallback((state: AUTHENTICATION) => {
-    dispatch[AUTHORIZATION_STATE_KEY].setAuthState(state)
+    dispatch[STATE_KEY.AUTHORIZATION].setAuthState(state)
   }, [])
 
   const setUserInfo = React.useCallback(
     (userInfo: UserInfoType, state: AUTHENTICATION) => {
-      dispatch[AUTHORIZATION_STATE_KEY].setUserInfo(userInfo)
+      dispatch[STATE_KEY.AUTHORIZATION].setUserInfo(userInfo)
       setAuthState(state)
     },
     []
@@ -75,7 +75,10 @@ const useAuthentication = () => {
 
   const signOut = () => {
     authLocalStorage.remove()
-    dispatch[AUTHORIZATION_STATE_KEY].resetState()
+
+    Object.values(STATE_KEY).forEach((value) => {
+      dispatch[value].resetState()
+    })
   }
 
   return { signIn, signOut, verify }

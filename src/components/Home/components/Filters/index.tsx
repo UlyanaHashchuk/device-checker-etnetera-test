@@ -4,7 +4,7 @@ import NextImage from 'next/image'
 import { Dropdown, Text, Checkbox } from '~/ui'
 import { Dispatch, useDispatch, useSelector } from '~/store'
 import { getDeviceFilters } from '~/selectors'
-import { DEVICES_STATE_KEY } from '~/constants'
+import { STATE_KEY } from '~/constants'
 import { SYSTEM_OPTIONS, VENDOR_OPTIONS } from '../../constants'
 import messages from './index.messages'
 import {
@@ -25,15 +25,15 @@ const Filters = ({ searchInput, setSearchInput }: Props) => {
   const { isChecked, osIndex, vendorIndex } = useSelector(getDeviceFilters)
 
   const onOsSelect = (value: number) => {
-    dispatch[DEVICES_STATE_KEY].setOsIndex(value)
+    dispatch[STATE_KEY.DEVICES].setOsIndex(value)
   }
 
   const onVendorSelect = (value: number) => {
-    dispatch[DEVICES_STATE_KEY].setVendorIndex(value)
+    dispatch[STATE_KEY.DEVICES].setVendorIndex(value)
   }
 
   const onCheck = () => {
-    dispatch[DEVICES_STATE_KEY].setIsChecked(!isChecked)
+    dispatch[STATE_KEY.DEVICES].setIsChecked(!isChecked)
   }
 
   return (

@@ -21,7 +21,7 @@ const Device = React.memo(
     return (
       <Box secondary>
         <ImageContainer>
-          <Image src={image ?? noImage} alt="device image" />
+          <Image src={image ?? noImage.src} alt="device image" />
           {borrowed && deviceState !== DEVICE_STATE.AVAILABLE && (
             <ImageOverlayText small truncate>
               {formatMessage(messages.borrowedBy, {
@@ -34,11 +34,13 @@ const Device = React.memo(
           )}
         </ImageContainer>
         <div className="p-2.5">
-          <Text large>{model}</Text>
-          <Text secondary xSmall>
+          <Text large truncate>
+            {model}
+          </Text>
+          <Text secondary xSmall truncate>
             {vendor}
           </Text>
-          <Text className="mt-5 mb-4">
+          <Text className="mt-5 mb-4" truncate>
             {os} {osVersion ? `/ ${osVersion}` : ''}
           </Text>
           <Button

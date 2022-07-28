@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createModel } from '@rematch/core'
-import { AUTHENTICATION, USER_TYPE } from '~/constants'
+import { AUTHENTICATION, STATE_KEY, USER_TYPE } from '~/constants'
 import { RootModel } from '~/models/index'
 
 export type UserInfoType = {
@@ -10,12 +10,12 @@ export type UserInfoType = {
   name: string
 }
 
-type AuthorizationState = {
+export type AuthorizationStateType = {
   authState: AUTHENTICATION
   user: UserInfoType
 }
 
-const initialState: AuthorizationState = {
+const initialState: AuthorizationStateType = {
   authState: AUTHENTICATION.AUTHENTICATING,
   user: {
     id: null,
@@ -26,6 +26,7 @@ const initialState: AuthorizationState = {
 }
 
 export const authorization = createModel<RootModel>()({
+  name: STATE_KEY.AUTHORIZATION,
   state: initialState,
   reducers: {
     setUserInfo(state, payload: UserInfoType) {
@@ -34,9 +35,8 @@ export const authorization = createModel<RootModel>()({
     setAuthState(state, payload: AUTHENTICATION) {
       state.authState = payload
     },
-    resetState(state) {
-      state.user = initialState.user
-      state.authState = AUTHENTICATION.UNAUTHENTICATED
+    resetState() {
+      return initialState
     },
   },
 })

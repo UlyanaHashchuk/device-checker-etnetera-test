@@ -1,10 +1,13 @@
 import { createSelector, RootState } from '~/store'
-import { AUTHORIZATION_STATE_KEY, DEVICES_STATE_KEY } from '~/constants'
+import { STATE_KEY } from '~/constants'
+import { AuthorizationStateType } from '~/models/authorization'
+import { DevicesStateType } from '~/models/devices'
 
 export const getAuthorizationState = (state: RootState) =>
-  state[AUTHORIZATION_STATE_KEY]
+  state[STATE_KEY.AUTHORIZATION] as AuthorizationStateType
 
-export const getDevicesState = (state: RootState) => state[DEVICES_STATE_KEY]
+export const getDevicesState = (state: RootState) =>
+  state[STATE_KEY.DEVICES] as DevicesStateType
 
 export const getUserType = createSelector(
   getAuthorizationState,
@@ -24,4 +27,9 @@ export const getAuthState = createSelector(
 export const getDeviceFilters = createSelector(
   getDevicesState,
   (state) => state.filters
+)
+
+export const getDevices = createSelector(
+  getDevicesState,
+  (state) => state.devices
 )
