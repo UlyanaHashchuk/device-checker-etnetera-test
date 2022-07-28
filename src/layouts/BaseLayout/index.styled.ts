@@ -10,7 +10,7 @@ export const Content = styled.div<{
   centered: boolean
 }>`
   flex: 100%;
-  margin: 0 20px;
+  margin: 69px 20px 0;
 
   ${({ centered }) =>
     centered &&
