@@ -26,8 +26,6 @@ const Devices = ({ searchInput }: Props) => {
     )
   }
 
-  const hasDevices = !!devices.length
-
   React.useEffect(() => {
     setIsLoading(true)
 
@@ -45,7 +43,7 @@ const Devices = ({ searchInput }: Props) => {
       })
   }, [])
 
-  if (!hasDevices || isLoading) {
+  if (!devices.length || isLoading) {
     return (
       <Text secondary className="flex justify-center mt-10">
         {formatMessage(isLoading ? messages.isLoading : messages.noDevices)}
