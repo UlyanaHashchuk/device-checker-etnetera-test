@@ -10,31 +10,40 @@ import Device from '../Device'
 import messages from '../../index.messages'
 import { Container } from './index.styled'
 
-const Devices = () => {
+type Props = {
+  searchInput: string
+}
+
+const Devices = ({ searchInput }: Props) => {
   const { formatMessage } = useIntl()
   const dispatch = useDispatch<Dispatch>()
   const [isLoading, setIsLoading] = React.useState(false)
-  const devices = useSelector(getDevices)
+  let devices = useSelector(getDevices)
+
+  if (searchInput !== '') {
+    devices = devices.filter(({ model }) =>
+      model.toLowerCase().includes(searchInput.toLowerCase())
+    )
+  }
+
   const hasDevices = !!devices.length
 
   React.useEffect(() => {
-    if (!hasDevices && !isLoading) {
-      setIsLoading(true)
+    setIsLoading(true)
 
-      request<DeviceType[]>({
-        url: 'phones',
-        method: 'GET',
+    request<DeviceType[]>({
+      url: 'phones',
+      method: 'GET',
+    })
+      .then((data) => {
+        if (data) {
+          dispatch[STATE_KEY.DEVICES].setDevices(data)
+        }
       })
-        .then((data) => {
-          if (data) {
-            dispatch[STATE_KEY.DEVICES].setDevices(data)
-          }
-        })
-        .finally(() => {
-          setIsLoading(false)
-        })
-    }
-  }, [hasDevices, isLoading])
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [])
 
   if (!hasDevices || isLoading) {
     return (

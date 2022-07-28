@@ -1,4 +1,4 @@
-export const SYSTEM_OPTIONS = ['Nezáleží', 'Android', 'Windows', 'IOS']
+export const OS_OPTIONS = ['Nezáleží', 'Android', 'Windows', 'IOS']
 
 export const VENDOR_OPTIONS = [
   'Nezáleží',

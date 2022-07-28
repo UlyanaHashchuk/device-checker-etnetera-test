@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="my-5 md:my-10">
       <Filters searchInput={searchInput} setSearchInput={setSearchInput} />
-      <Devices />
+      <Devices searchInput={searchInput} />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { Dropdown, Text, Checkbox } from '~/ui'
 import { Dispatch, useDispatch, useSelector } from '~/store'
 import { getDeviceFilters } from '~/selectors'
 import { STATE_KEY } from '~/constants'
-import { SYSTEM_OPTIONS, VENDOR_OPTIONS } from '../../constants'
+import { OS_OPTIONS, VENDOR_OPTIONS } from '../../constants'
 import messages from './index.messages'
 import {
   Wrapper,
@@ -44,7 +44,7 @@ const Filters = ({ searchInput, setSearchInput }: Props) => {
             {formatMessage(messages.system)}
           </Text>
           <Dropdown onSelect={onOsSelect} activeTab={osIndex}>
-            {SYSTEM_OPTIONS.map((option, index) => (
+            {OS_OPTIONS.map((option, index) => (
               <Text key={index}>{option}</Text>
             ))}
           </Dropdown>
